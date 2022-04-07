@@ -5,7 +5,7 @@
     "main": "index.js",
     "type": "module",
     "scripts": {
-        "start": "node esbuild.js -w -p 2222"
+        "start": "node esbuild.js -w"
     },
     "devDependencies": {
         "esbuild": "^0.14.21",

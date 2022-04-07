@@ -1058,7 +1058,7 @@
           }
           return dispatcher.useContext(Context, unstable_observedBits);
         }
-        function useState(initialState) {
+        function useState2(initialState) {
           var dispatcher = resolveDispatcher();
           return dispatcher.useState(initialState);
         }
@@ -1646,7 +1646,7 @@
         exports.useMemo = useMemo;
         exports.useReducer = useReducer;
         exports.useRef = useRef;
-        exports.useState = useState;
+        exports.useState = useState2;
         exports.version = ReactVersion;
       })();
     }
@@ -20462,7 +20462,44 @@ For more info, visit https://reactjs.org/link/mock-scheduler`);
   // src/App.tsx
   var import_react = __toModule(require_react());
   var App = () => {
-    return /* @__PURE__ */ import_react.default.createElement("h1", null, "Hello World!");
+    const [name, setName] = (0, import_react.useState)("");
+    const [surname, setSurname] = (0, import_react.useState)("");
+    const [count, setCount] = (0, import_react.useState)(0);
+    const [namesList, setNamesList] = (0, import_react.useState)([]);
+    const [selectedName, setSelected] = (0, import_react.useState)("");
+    const inc = () => {
+      setCount(count + 1);
+    };
+    const dec = () => {
+      setCount(count - 1);
+    };
+    const addNames = () => {
+      setNamesList([...namesList, surname + ", " + name]);
+    };
+    const selectedItem = (e) => {
+      setSelected(e.target.value);
+      var [tempSurname, tempName] = e.target.value.split(",");
+      setName(tempName);
+      setSurname(tempSurname);
+    };
+    return /* @__PURE__ */ import_react.default.createElement("div", null, /* @__PURE__ */ import_react.default.createElement("select", {
+      value: selectedName,
+      onChange: selectedItem
+    }, namesList.map((name2, index) => /* @__PURE__ */ import_react.default.createElement("option", {
+      key: index,
+      value: name2
+    }, name2))), /* @__PURE__ */ import_react.default.createElement("input", {
+      type: "text",
+      value: name,
+      onChange: (e) => setName(e.target.value)
+    }), /* @__PURE__ */ import_react.default.createElement("input", {
+      type: "text",
+      value: surname,
+      onChange: (e) => setSurname(e.target.value)
+    }), /* @__PURE__ */ import_react.default.createElement("button", {
+      type: "button",
+      onClick: addNames
+    }, "Create"), /* @__PURE__ */ import_react.default.createElement("button", null));
   };
 
   // src/index.tsx
